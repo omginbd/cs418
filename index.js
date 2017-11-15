@@ -1,79 +1,94 @@
-const CFonts = require('cfonts')
-const fs = require('fs')
-const { each } = require('lodash')
-const menu = require('node-menu')
+const CFonts = require("cfonts")
+const fs = require("fs")
+const { each } = require("lodash")
+const menu = require("node-menu")
 
-const { findProfilemostKmerHandler } = require('./2c')
-const { greedyMotifSearchHandler } = require('./2d')
-const { greedyMotifSearchPseudoCountsHandler } = require('./2e')
-const { randomizedMotifSearchHandler } = require('./2f')
-const { gibbsSamplerHandler } = require('./2g')
-const { generateKmerCompositionHandler } = require('./3a')
-const { stringFromPathHandler } = require('./3b')
-const { generateOverlapGraphHandler } = require('./3c')
-const { generateDeBruijnGraphFromStringHandler } = require('./3d')
-const { generateDeBruijnGraphFromKmersHandler } = require('./3e')
-const { findEulerianCycleHandler } = require('./3f')
-const { distanceBetweenLeavesHandler } = require('./7a')
-const { readFileAsString } = require('./utils')
+const { findProfilemostKmerHandler } = require("./2c")
+const { greedyMotifSearchHandler } = require("./2d")
+const { greedyMotifSearchPseudoCountsHandler } = require("./2e")
+const { randomizedMotifSearchHandler } = require("./2f")
+const { gibbsSamplerHandler } = require("./2g")
+const { generateKmerCompositionHandler } = require("./3a")
+const { stringFromPathHandler } = require("./3b")
+const { generateOverlapGraphHandler } = require("./3c")
+const { generateDeBruijnGraphFromStringHandler } = require("./3d")
+const { generateDeBruijnGraphFromKmersHandler } = require("./3e")
+const { findEulerianCycleHandler } = require("./3f")
+const { distanceBetweenLeavesHandler } = require("./7a")
+const { trieFromPatternHandler } = require("./9a")
+const { buildSuffixArrayHandler } = require("./9g")
+const { suffixArrayPatternMatchHandler } = require("./9h")
+const { readFileAsString } = require("./utils")
 
 const options = [
   {
-    label: 'Find Profile-most K-mer in DNA string',
+    label: "Find Profile-most K-mer in DNA string",
     handler: findProfilemostKmerHandler
   },
   {
-    label: 'Greedy Motif Search',
+    label: "Greedy Motif Search",
     handler: greedyMotifSearchHandler
   },
   {
-    label: 'Greedy Motif Search (With Pseudo Counts)',
+    label: "Greedy Motif Search (With Pseudo Counts)",
     handler: greedyMotifSearchPseudoCountsHandler
   },
   {
-    label: 'Randomized Motif Search',
+    label: "Randomized Motif Search",
     handler: randomizedMotifSearchHandler
   },
   {
-    label: 'Gibbs Sampler',
+    label: "Gibbs Sampler",
     handler: gibbsSamplerHandler
   },
   {
-    label: 'Generate Kmer Compasition',
+    label: "Generate Kmer Compasition",
     handler: generateKmerCompositionHandler
   },
   {
-    label: 'Generate String from Kmers',
+    label: "Generate String from Kmers",
     handler: stringFromPathHandler
   },
   {
-    label: 'Generate Overlap Graph',
+    label: "Generate Overlap Graph",
     handler: generateOverlapGraphHandler
   },
   {
-    label: 'Generate De Bruijn Graph From String',
+    label: "Generate De Bruijn Graph From String",
     handler: generateDeBruijnGraphFromStringHandler
   },
   {
-    label: 'Generate De Bruijn Graph From Kmers',
+    label: "Generate De Bruijn Graph From Kmers",
     handler: generateDeBruijnGraphFromKmersHandler
   },
   {
-    label: 'Find Eulerian Cycle',
+    label: "Find Eulerian Cycle",
     handler: findEulerianCycleHandler
   },
   {
-    label: 'Compute Distances Between Leaves',
+    label: "Compute Distances Between Leaves",
     handler: distanceBetweenLeavesHandler
+  },
+  {
+    label: "Trie From Patterns",
+    handler: trieFromPatternHandler
+  },
+  {
+    label: "Suffix Array from Genome",
+    handler: buildSuffixArrayHandler
+  },
+  {
+    label: "Pattern Match Suffix Array",
+    handler: suffixArrayPatternMatchHandler
   }
 ]
 
 menu.customHeader(() => {
-  CFonts.say('BIOINFORMATICS', {
-    font: 'block',
-    align: 'center',
-    colors: ['green'],
-    background: 'black',
+  CFonts.say("BIOINFORMATICS", {
+    font: "block",
+    align: "center",
+    colors: ["green"],
+    background: "black",
     letterSpacing: 1,
     lineHeight: 1,
     space: true
@@ -86,10 +101,10 @@ each(options, option => {
     filename => {
       const result = option.handler(readFileAsString(filename))
       console.log(result)
-      fs.writeFileSync('out.txt', result)
+      fs.writeFileSync("out.txt", result)
     },
     null,
-    [{ name: 'filename', type: 'string' }]
+    [{ name: "filename", type: "string" }]
   )
 })
 

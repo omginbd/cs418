@@ -1,5 +1,5 @@
-const fs = require('fs')
-const { each, isEmpty, reduce } = require('lodash')
+const fs = require("fs")
+const { each, isEmpty, reduce } = require("lodash")
 
 const numKmers = (DNA, k) => DNA.length - k + 1
 
@@ -60,7 +60,7 @@ module.exports.generateProfile = generateProfile
 const scoreMotifs = (motifs, k) => {
   let score = 0
   for (let i = 0; i < k; i++) {
-    let mostCount = 'A'
+    let mostCount = "A"
     const counts = { A: 0, C: 0, G: 0, T: 0 }
     for (let curMotif = 0; curMotif < motifs.length; curMotif++) {
       counts[motifs[curMotif][i]]++
@@ -101,8 +101,8 @@ module.exports.orderGraph = orderGraph
 const printGraph = graph => {
   return reduce(
     graph,
-    (memo, value, key) => memo + '\n' + `${key} -> ${value}`,
-    ''
+    (memo, value, key) => memo + "\n" + `${key} -> ${value}`,
+    ""
   )
 }
 
@@ -110,11 +110,11 @@ module.exports.printGraph = printGraph
 
 const parseGraph = adjacencyString => {
   const graph = {}
-  const nodes = adjacencyString.split('\n')
+  const nodes = adjacencyString.split("\n")
   nodes.forEach(node => {
-    const [_from, tos] = node.split('->')
+    const [_from, tos] = node.split("->")
     const from = _from.trim()
-    tos.split(',').forEach(to => {
+    tos.split(",").forEach(to => {
       if (!isEmpty(graph[from])) {
         graph[from].push(to.trim())
         graph[from].sort()
@@ -130,10 +130,10 @@ module.exports.parseGraph = parseGraph
 
 const parseWeightedTree = treeString => {
   const graph = {}
-  const nodes = treeString.split('\n')
+  const nodes = treeString.split("\n")
   nodes.forEach(node => {
-    const [from, _to] = node.split('->')
-    const [to, weight] = _to.split(':')
+    const [from, _to] = node.split("->")
+    const [to, weight] = _to.split(":")
     if (!isEmpty(graph[from])) {
       graph[from].push({ to, weight })
       graph[from].sort((a, b) => a.to - b.to)
@@ -147,10 +147,10 @@ const parseWeightedTree = treeString => {
 module.exports.parseWeightedTree = parseWeightedTree
 
 const printDistMatrix = matrix => {
-  let printString = ''
+  let printString = ""
   for (let i = 0; i < matrix.length; i++) {
-    printString += '\n'
-    printString += matrix[i].join(' ')
+    printString += "\n"
+    printString += matrix[i].join(" ")
   }
   return printString
 }
@@ -169,3 +169,14 @@ const deBruijnGlue = (graph, kmer) => {
 }
 
 module.exports.deBruijnGlue = deBruijnGlue
+
+const buildSuffixArray = genome => {
+  const suffixes = []
+  for (let i = 0; i < genome.length; i++) {
+    suffixes.push({ suffix: genome.slice(i), i })
+  }
+  suffixes.sort((a, b) => a.suffix.localeCompare(b.suffix))
+  return suffixes
+}
+
+module.exports.buildSuffixArray = buildSuffixArray
