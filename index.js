@@ -16,8 +16,12 @@ const { generateDeBruijnGraphFromKmersHandler } = require("./3e")
 const { findEulerianCycleHandler } = require("./3f")
 const { distanceBetweenLeavesHandler } = require("./7a")
 const { trieFromPatternHandler } = require("./9a")
+const { trieMatchingHandler } = require("./9b")
+const { buildSuffixTreeHandler } = require("./9c")
 const { buildSuffixArrayHandler } = require("./9g")
 const { suffixArrayPatternMatchHandler } = require("./9h")
+const { burrowsWheelerTransformHandler } = require("./9i")
+const { reconstructFromBurrowsWheelerHandler } = require("./9j")
 const { readFileAsString } = require("./utils")
 
 const options = [
@@ -74,12 +78,28 @@ const options = [
     handler: trieFromPatternHandler
   },
   {
+    label: "Prefix Trie Matching",
+    handler: trieMatchingHandler
+  },
+  {
+    label: "Build Suffix Tree",
+    handler: buildSuffixTreeHandler
+  },
+  {
     label: "Suffix Array from Genome",
     handler: buildSuffixArrayHandler
   },
   {
     label: "Pattern Match Suffix Array",
     handler: suffixArrayPatternMatchHandler
+  },
+  {
+    label: "Burrows Wheeler Transform",
+    handler: burrowsWheelerTransformHandler
+  },
+  {
+    label: "Reconstruct from Burrows Wheeler Transform",
+    handler: reconstructFromBurrowsWheelerHandler
   }
 ]
 

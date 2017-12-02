@@ -38,3 +38,5 @@ const printTrieNode = node => {
   })
   return toReturn
 }
+
+module.exports.printTrieNode = printTrieNode
