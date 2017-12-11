@@ -22,6 +22,7 @@ const { buildSuffixArrayHandler } = require("./9g")
 const { suffixArrayPatternMatchHandler } = require("./9h")
 const { burrowsWheelerTransformHandler } = require("./9i")
 const { reconstructFromBurrowsWheelerHandler } = require("./9j")
+const { lastToFirstMappingHandler } = require("./9k")
 const { readFileAsString } = require("./utils")
 
 const options = [
@@ -100,6 +101,10 @@ const options = [
   {
     label: "Reconstruct from Burrows Wheeler Transform",
     handler: reconstructFromBurrowsWheelerHandler
+  },
+  {
+    label: "Last to First Mapping",
+    handler: lastToFirstMappingHandler
   }
 ]
 
